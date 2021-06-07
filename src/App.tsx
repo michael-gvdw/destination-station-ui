@@ -4,6 +4,7 @@ import './App.css';
 
 //component
 import Info from './componenst/info/Info'
+import InputForm from './componenst/form/InputForm'
 
 //type
 import { TrainOption } from './Types'
@@ -41,7 +42,9 @@ function App() {
 
       <section>
         <h1>Form:</h1>
-        <div></div>
+        <div>
+          <InputForm/>
+        </div>
       </section>
 
       <section>
