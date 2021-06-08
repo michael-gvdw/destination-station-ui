@@ -1,5 +1,4 @@
 import React from "react";
-import './StyleInputForm.css'
 
 const initialState={
     linkNS: "",
@@ -121,7 +120,7 @@ export default class InputForm extends React.Component{
                         </div>
                     </div>
                 </div>
-                <button type="submit">submit</button>
+                <button type="submit" class="btn btn-primary mb-2">submit</button>
             </form>
         );
     }
