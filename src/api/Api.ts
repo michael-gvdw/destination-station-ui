@@ -8,5 +8,5 @@ import { DelayParams } from '../Types'
 
 
 export const fetchDelays = async (params: DelayParams)=> {
-    const { data } = await axios.get(`${BASE_URI}${ENDPOINTS.delay}`, { params: params})
+    return await axios.get(`${BASE_URI}${ENDPOINTS.delay}`, { params: params})
 }
