@@ -1,12 +1,17 @@
 import React from "react";
 
+// stations
+import { Stations } from '../../Stations'
+
 // visual
 import { Alert } from '../visual/visual'
 
 
+
 type Props = {
     handleSubmit: () => void;
-    handleChange: (event: React.FormEvent<HTMLInputElement>) => void;
+    handleSelectChange: (event: React.FormEvent<HTMLSelectElement>) => void;
+    handleInputChange: (event: React.FormEvent<HTMLInputElement>) => void;
     fromStation: string;
     toStation: string;
     dateDeparture: string;
@@ -14,7 +19,7 @@ type Props = {
     error: string
 }
 
-const InputForm: React.FC<Props> = ({ handleSubmit, handleChange, fromStation, 
+const InputForm: React.FC<Props> = ({ handleSubmit, handleInputChange, handleSelectChange,fromStation, 
                                         toStation, dateDeparture, timeDeparture, error }) => {
 
     return(
@@ -24,28 +29,18 @@ const InputForm: React.FC<Props> = ({ handleSubmit, handleChange, fromStation,
             <div className="form-group row mt-2">
                 <label className="col-sm-2 col-form-label">From</label>
                 <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        type="text"
-                        name="fromStation"
-                        placeholder="Depart From"
-                        value={fromStation}
-                        onChange={handleChange}
-                    />
+                    <select className="form-select" name={`fromStation`} aria-label="Default select example" value={fromStation} onChange={handleSelectChange}>
+                        { Stations.map(station => <option value={station.code}>{ station.name }</option>) }
+                    </select>
                 </div>
             </div>
 
             <div className="form-group row row mt-2">
                 <label className="col-sm-2 col-form-label">To</label>
                 <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        type="text"
-                        name="toStation"
-                        placeholder="To Destination"
-                        value={toStation}
-                        onChange={handleChange}
-                    />
+                    <select className="form-select" name={`toStation`} aria-label="Default select example" value={toStation} onChange={handleSelectChange}>
+                        { Stations.map(station => <option value={station.code}>{ station.name }</option>) }
+                    </select>
                 </div>
             </div>
 
@@ -57,7 +52,7 @@ const InputForm: React.FC<Props> = ({ handleSubmit, handleChange, fromStation,
                         type="date"
                         name="dateDeparture"
                         value={dateDeparture}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                 </div>
             </div>
@@ -70,7 +65,7 @@ const InputForm: React.FC<Props> = ({ handleSubmit, handleChange, fromStation,
                         type="time"
                         name="timeDeparture"
                         value={timeDeparture}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         min="00:00" max="23:59"
                     />
                 </div>

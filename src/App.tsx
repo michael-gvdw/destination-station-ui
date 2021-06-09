@@ -65,14 +65,25 @@ class App extends React.Component<AppProps, AppState> {
   state: AppState = {
     isLoading: false,
     form: {
-      fromStation: "",
-      toStation: "",
-      dateDeparture: "",
-      timeDeparture: "",
+      fromStation: "UT",
+      toStation: "AMS",
+      dateDeparture: new Date().toISOString().substring(0, 10),
+      timeDeparture: `${new Date().getHours()}:${new Date().getMinutes()}`,
       error: ""
     },
     api: [
-
+      {
+        departureStation: 'Amsterdam Centraal',
+        destinationStation: 'Utrecht Centraal',
+        plannedDepartureTime: '2021-06-21',
+        plannedArrivalTime: '2021-06-21',
+        arrivalDelay: {
+          predictedDelay: 5,
+          lowerConfidenceBound: 3,
+          upperConfidenceBound: 7,
+          confidencelevel: 95,
+        }
+      }
     ]
   }
 
@@ -90,7 +101,19 @@ class App extends React.Component<AppProps, AppState> {
     return true;
   }
 
-  handleCange = (event: React.FormEvent<HTMLInputElement>) => {
+  handleSelectChange = (event: React.FormEvent<HTMLSelectElement>) => {
+    const { name, value } = event.currentTarget
+
+    this.setState((prevState) => ({
+      ...prevState,
+      form: {
+        ...prevState.form,
+        [name]: value
+      }
+    }))
+  }
+
+  handleInputChange = (event: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget
 
     this.setState((prevState) =>  ({
@@ -160,8 +183,9 @@ class App extends React.Component<AppProps, AppState> {
   
         <section>
           <h1>Departure Information:</h1>
-          <InputForm 
-            handleChange={this.handleCange} 
+          <InputForm
+            handleSelectChange={this.handleSelectChange}
+            handleInputChange={this.handleInputChange} 
             handleSubmit={this.handleSubmit} 
             fromStation={this.state.form.fromStation} 
             toStation={this.state.form.toStation} 
